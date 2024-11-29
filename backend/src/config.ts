@@ -1,0 +1,2 @@
+export const jwt_secret =
+  "36cbfc35677998156c7cf82ea466a854e090c70cb532f466137965278f4fe3d8";

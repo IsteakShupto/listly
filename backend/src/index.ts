@@ -1,27 +1,10 @@
 import { Hono } from "hono";
-import { getPrisma } from "./getPrisma";
+import { userRouter } from "./routes/user";
+import { taskRouter } from "./routes/task";
 
-const app = new Hono<{
-  Bindings: {
-    DATABASE_URL: string;
-  };
-}>();
+const app = new Hono();
 
-app.post("/api/v1/user/signup", async (c) => {
-  const body = await c.req.json();
-
-  const prisma = getPrisma(c.env.DATABASE_URL);
-
-  const user = await prisma.user.create({
-    data: {
-      email: body.email,
-      password: body.password,
-    },
-  });
-
-  return c.json({
-    id: user.id,
-  });
-});
+app.route("/api/v1/user", userRouter);
+app.route("/api/v1/task", taskRouter);
 
 export default app;
