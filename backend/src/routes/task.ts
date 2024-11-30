@@ -68,6 +68,15 @@ taskRouter.get("/:task_id/individual", async (c: any) => {
         authorId: parseInt(c.userId),
         id: parseInt(c.req.param("task_id")),
       },
+      include: {
+        author: {
+          select: {
+            email: true,
+            username: true,
+            address: true,
+          },
+        },
+      },
     });
 
     return c.json({
@@ -88,6 +97,13 @@ taskRouter.get("/bulk", async (c: any) => {
     const tasks = await prisma.task.findMany({
       where: {
         authorId: parseInt(c.userId),
+      },
+      include: {
+        author: {
+          select: {
+            email: true,
+          },
+        },
       },
     });
 

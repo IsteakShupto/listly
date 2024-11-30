@@ -45,7 +45,7 @@ userRouter.post("/signup", async (c) => {
     );
 
     return c.json({
-      message: "You have successfully createn an account.",
+      message: "You have successfully created an account.",
       id: user.id,
       token: token,
     });
